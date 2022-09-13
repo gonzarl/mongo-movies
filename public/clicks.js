@@ -14,10 +14,14 @@ button.addEventListener('click', function(e) {
         let lista = "";
         data.forEach((peli)=>
         {
-            lista = lista + "<p>" + peli.title + " (" + peli.year+")</p>";
+            lista = lista + "<div> <img src="+peli.poster+">";
+            lista = lista + "<p>"+peli.title + " (" + peli.year+")</p>";
+            lista = lista + "<p> Rating: "+peli.imdb+"</p> <div>";
         })
         const divRes = document.getElementById("resultados");
         divRes.innerHTML = lista;
+        const divSearchResults = document.getElementById("search");
+        divSearchResults.innerHTML = "<p> Se han encontrado " + data.length + " resultados para tu busqueda. </p>"
         return;
     } )
     .catch(function(error) {

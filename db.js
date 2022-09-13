@@ -24,7 +24,9 @@ const getPelis = (name) => {
   const projection = {
     'title': 1,
     'year': 1, 
-    '_id': 0
+    '_id': 0,
+    'imdb': 1,
+    'poster': 1
   };
   const coll = db.collection('Movies');
   const cursor = coll.find(filter, { projection });

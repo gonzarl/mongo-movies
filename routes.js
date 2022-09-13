@@ -11,9 +11,12 @@ router.get('/public',(req,res) => {
 router.get('/peliculas', (req, res) => {
   getPelis(req.query.title)
     .then((items) => {
+      console.log(items)
       items = items.map((item) => ({
         title: item.title,
-        year: item.year
+        year: item.year,
+        poster: item.poster,
+        imdb: item.imdb.rating
       }))
       res.json(items)
     })
@@ -26,7 +29,6 @@ router.get('/peliculas', (req, res) => {
 // Postear una pelicula
 router.post('/peliculas', (req, res) => {
   const item = req.body
-  console.log(req.body)
   const result = itemSchema.validate(item)
   if (result.error) {
     console.log(result.error)
