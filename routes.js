@@ -9,10 +9,11 @@ router.get('/public',(req,res) => {
 
 // Obtener las peliculas solicitadas
 router.get('/peliculas', (req, res) => {
-  getPelis()
+  getPelis(req.query.title)
     .then((items) => {
       items = items.map((item) => ({
-        title: item.title
+        title: item.title,
+        year: item.year
       }))
       res.json(items)
     })

@@ -3,7 +3,7 @@ const button = document.getElementById('buttonBuscar');
 
 button.addEventListener('click', function(e) {
     // realizar la busqueda y generar la lista 
-    fetch('/peliculas', {method: 'GET'})
+    fetch('/peliculas?title='+title(), {method: 'GET'})
     .then(function(response) {
       if(response.ok) {
         return response.json();
@@ -14,7 +14,7 @@ button.addEventListener('click', function(e) {
         let lista = "";
         data.forEach((peli)=>
         {
-            lista = lista + "<p>" + peli.title + "</p>";
+            lista = lista + "<p>" + peli.title + " (" + peli.year+")</p>";
         })
         const divRes = document.getElementById("resultados");
         divRes.innerHTML = lista;
@@ -27,3 +27,8 @@ button.addEventListener('click', function(e) {
    
 
 });
+
+
+const title = () => {
+  return document.getElementById("input-title").value;
+}
