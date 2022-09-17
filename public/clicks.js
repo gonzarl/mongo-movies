@@ -14,9 +14,17 @@ button.addEventListener('click', function(e) {
         let lista = "";
         data.forEach((peli)=>
         {
-            lista = lista + "<div> <img src="+peli.poster+">";
-            lista = lista + "<p>"+peli.title + " (" + peli.year+")</p>";
-            lista = lista + "<p> Rating: "+peli.imdb+"</p> <div>";
+          lista = lista + "<div id='peli'>"
+          if (peli.poster != null)
+            lista = lista + "<img src="+peli.poster+">";
+          lista = lista + "<p>"+peli.title + " (" + peli.year+")</p>";
+          if (peli.imdb != null)
+            lista = lista + "<p> Rating IMDB: "+peli.imdb.rating+"</p>";
+          if (peli.tomatoes != null)
+            lista = lista + "<p> Rating RottenTomatoes: "+peli.tomatoes+"</p>";
+          if (peli.metacritic != null)
+            lista = lista + "<p> Rating Metacritic: "+peli.metacritic+"</p>";
+          lista = lista + "</div>"
         })
         const divRes = document.getElementById("resultados");
         divRes.innerHTML = lista;

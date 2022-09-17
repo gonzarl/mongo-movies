@@ -1,7 +1,7 @@
 const { MongoClient, ObjectId } = require('mongodb')
 
 const connectionUrl = 'mongodb://127.0.0.1:27017'
-const dbName = 'Peliculas'
+const dbName = 'peliculas'
 
 let db
 
@@ -11,24 +11,25 @@ const init = () =>
   })
 
 const insertItem = (item) => {
-  const collection = db.collection('Movies')
+  const collection = db.collection('movies')
   return collection.insertOne(item)
 }
 
 
 const getPelis = (name) => {
-  console.log(name)
   const filter = {
-   'title': {$regex: new RegExp(name)}
+   '$text': {$search: name}
   };
   const projection = {
     'title': 1,
     'year': 1, 
     '_id': 0,
+    'poster': 1,
     'imdb': 1,
-    'poster': 1
+    'tomatoes':1,
+    'metacritic':1
   };
-  const coll = db.collection('Movies');
+  const coll = db.collection('movies');
   const cursor = coll.find(filter, { projection });
   const result = cursor.toArray();
   return result;

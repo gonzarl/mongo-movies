@@ -11,12 +11,13 @@ router.get('/public',(req,res) => {
 router.get('/peliculas', (req, res) => {
   getPelis(req.query.title)
     .then((items) => {
-      console.log(items)
       items = items.map((item) => ({
         title: item.title,
         year: item.year,
-        poster: item.poster,
-        imdb: item.imdb.rating
+        poster: item.poster || null,
+        imdb: item.imdb|| null,
+        tomatoes: tomatoesRating(item),
+        metacritic: item.metacritic || null
       }))
       res.json(items)
     })
@@ -25,6 +26,9 @@ router.get('/peliculas', (req, res) => {
       res.status(500).end()
     })
 })
+
+const tomatoesRating = (item) => item.tomatoes === undefined ? null :
+item.tomatoes.critic === undefined || item.tomatoes.critic.rating === undefined ? null : item.tomatoes.critic.rating
 
 // Postear una pelicula
 router.post('/peliculas', (req, res) => {
