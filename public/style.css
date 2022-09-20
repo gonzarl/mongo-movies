@@ -4,7 +4,7 @@ input{
     padding: 10px;
     margin: 10px;
     height: 20px;
-    width: 500px;
+    width: 200px;
     border:1px solid #eaeaea;
     outline:none;
 }
@@ -37,27 +37,49 @@ input[type="submit"]:hover {
 
 .main {
     text-align: center;
+    display: grid;
+    align-items:center;
+    grid-template-areas: 
+        "h2 h2"
+        "col1 col2"
+        "peli peli";
 }
 
 h2 {
-    font-family: 'Verdana', cursive;
+    grid-area: h2;
+    font-size: 20x;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 2%;
+    color:#314c77
 }
 
 body {
-    background-color: #cccccc;
+    background-color: #eedfdf;
 }
 
 img{
     max-width: 200px;
 }
+#col1{
+    grid-area: col1;
+}
+#col2{
+    grid-area: col2;
+}
 #especifica{
-    border: 1px solid black;
-    margin: 2% 20%;
+    border: 3px solid #c4a2a2;
+    margin: 2% 2%;
+    width: 500px;
     padding: 2%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
-#peli{
-    border-bottom: 1px solid black;
+#resultados{
+    grid-area: peli;
     margin: 2% 20%;
+}
+#peli{
+    border: 3px solid #c4a2a2;
+    background-color: #c4a2a2;
+    padding: 4% 4%;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
