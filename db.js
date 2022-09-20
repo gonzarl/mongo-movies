@@ -35,5 +35,29 @@ const getPelis = (name) => {
   return result;
 }
 
+const getPelisBusquedaEspecifica = () => {
+  const filter = {
+    '$text': {$search: 'cars'},
+    'runtime': {$lte:120},
+    'year': {$gte:2000, $lte:2010},
+    'cast': {$in : ['Paul Newman']},
+    'imdb.rating': {$gte:7}
+   };
+   const projection = {
+     'title': 1,
+     'year': 1, 
+     '_id': 0,
+     'poster': 1,
+     'imdb': 1,
+     'tomatoes':1,
+     'metacritic':1
+   };
+   console.log("aaaaaa");
+   const coll = db.collection('movies');
+   const cursor = coll.find(filter, { projection });
+   const result = cursor.toArray();
+   return result;
+}
 
-module.exports = { init, insertItem, getPelis }
+
+module.exports = { init, insertItem, getPelis, getPelisBusquedaEspecifica }

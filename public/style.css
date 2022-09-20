@@ -50,7 +50,12 @@ body {
 img{
     max-width: 200px;
 }
-
+#especifica{
+    border: 1px solid black;
+    margin: 2% 20%;
+    padding: 2%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 #peli{
     border-bottom: 1px solid black;
     margin: 2% 20%;

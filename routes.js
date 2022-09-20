@@ -1,5 +1,5 @@
 const express = require('express')
-const { insertItem,  getPelis, getPelisT } = require('./db')
+const { insertItem,  getPelis, getPelisBusquedaEspecifica } = require('./db')
 
 const router = express.Router()
 
@@ -29,6 +29,25 @@ router.get('/peliculas', (req, res) => {
 
 const tomatoesRating = (item) => item.tomatoes === undefined ? null :
 item.tomatoes.critic === undefined || item.tomatoes.critic.rating === undefined ? null : item.tomatoes.critic.rating
+
+router.get('/peliculas-filtradas', (req, res) => {
+  getPelisBusquedaEspecifica()
+  .then((items) => {
+    items = items.map((item) => ({
+      title: item.title,
+      year: item.year,
+      poster: item.poster || null,
+      imdb: item.imdb|| null,
+      tomatoes: tomatoesRating(item),
+      metacritic: item.metacritic || null
+    }))
+    res.json(items)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).end()
+  })
+})
 
 // Postear una pelicula
 router.post('/peliculas', (req, res) => {
