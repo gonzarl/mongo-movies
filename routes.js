@@ -98,6 +98,7 @@ const schemaMovie = {
     poster: {type: "string"},
     year: {type: "integer"},
   },
+  //Los unicos datos que deben tener por obligacion todas las peliculas son el titulo y el año
   required: ["title", "year"]
 }
 
