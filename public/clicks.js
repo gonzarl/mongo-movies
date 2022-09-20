@@ -52,7 +52,6 @@ buttonEspecifica.addEventListener('click', function(e) {
     throw new Error('Request failed.');
   })
   .then((data) => {
-      console.log(data)
       let lista = "";
       data.forEach((peli)=>
       {

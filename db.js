@@ -52,7 +52,6 @@ const getPelisBusquedaEspecifica = () => {
      'tomatoes':1,
      'metacritic':1
    };
-   console.log("aaaaaa");
    const coll = db.collection('movies');
    const cursor = coll.find(filter, { projection });
    const result = cursor.toArray();
