@@ -58,5 +58,15 @@ const getPelisBusquedaEspecifica = () => {
    return result;
 }
 
+const getPelisRandom = () => {
+  const aggregate = [
+    {'$sample': {'size': 5}}
+  ];
 
-module.exports = { init, insertItem, getPelis, getPelisBusquedaEspecifica }
+   const coll = db.collection('movies');
+   const cursor = coll.aggregate(aggregate);
+   const result = cursor.toArray();
+   return result;
+}
+
+module.exports = { init, insertItem, getPelis, getPelisBusquedaEspecifica, getPelisRandom }

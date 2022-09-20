@@ -1,5 +1,7 @@
 const express = require('express')
-const { insertItem,  getPelis, getPelisBusquedaEspecifica } = require('./db')
+const { insertItem,  getPelis, getPelisBusquedaEspecifica, getPelisRandom } = require('./db')
+const Ajv = require("ajv")
+const ajv = new Ajv()
 
 const router = express.Router()
 
@@ -49,12 +51,31 @@ router.get('/peliculas-filtradas', (req, res) => {
   })
 })
 
+router.get('/pelis-random', (req,res) => {
+  getPelisRandom()
+  .then((items) => {
+    items = items.map((item) => ({
+      title: item.title,
+      year: item.year,
+      poster: item.poster || null,
+      imdb: item.imdb|| null,
+      tomatoes: tomatoesRating(item),
+      metacritic: item.metacritic || null
+    }))
+    res.json(items)
+  })
+  .catch((err) => {
+    console.log(err)
+    res.status(500).end()
+  })
+})
+
 // Postear una pelicula
 router.post('/peliculas', (req, res) => {
   const item = req.body
-  const result = itemSchema.validate(item)
-  if (result.error) {
-    console.log(result.error)
+  const valid = ajv.validate(schemaMovie,item)
+  if (!valid) {
+    console.log(ajv.errors)
     res.status(400).end()
     return
   }
@@ -68,5 +89,16 @@ router.post('/peliculas', (req, res) => {
     })
 })
 
+const schemaMovie = {
+  type: "object",
+  properties: {
+    title: {type: "string"},
+    fullplot: {type: "string"},
+    cast: {type: "array"},
+    poster: {type: "string"},
+    year: {type: "integer"},
+  },
+  required: ["title", "year"]
+}
 
 module.exports = router
